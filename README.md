@@ -1,7 +1,6 @@
 # RibbetRun<br/>
 Made by:<br/>
 TSE I Ching Eugene, UID: 3035608215, Subclass G<br/>
-Arminder-Singh, UID 3035576656, Subclass G<br/>
 
 ## Game Description<br/>
 RibbetRun is an infinite obstacle dodging game. The single player controls Ribbet the Frog. Press the spacebar or up key (↑) to start the game and to jump. Players must avoid all the trees (obstacles) on the path by jumping. If the player hits a tree, they lose and the game ends. The aim is to last in the game as long as possible. Players’ score is based on time elapsed and bonuses obtained. Players can also hit coins on the path, which will grant them bonus points.
