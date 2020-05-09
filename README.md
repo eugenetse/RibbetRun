@@ -5,7 +5,22 @@ TSE I Ching Eugene, UID: 3035608215, Subclass G<br/>
 ## Game Description<br/>
 RibbetRun is an obstacle dodging game. The single player controls Ribbet the Frog. Press the return key to start the game. Press spacebar to jump. Players must avoid all the trees (obstacles) on the path by jumping. If the player hits a tree, they lose and the game ends. The aim is to last in the game as long as possible. Players’ progress is based on time elapsed and steps moved.
 
+## Compilation, Execution and Playing Instructions (also shown in video)<br/>
+* Ensure you have all the files from this repository in your current directory/folder.<br/>
+* Enter 'Make'.<br/>
+* Enter './ribbetrun'.<br/>
+* You will be greeted by a welcome screen. Press the return key to begin playing.<br/>
+* Hit the spacebar to jump. Jump to avoid incoming trees<br/>
+* If you hit a tree, you lose and the game is over. Press the return key to instantly restart the game.<br/>
+* Or, you can press control+c to quit the game and return to shell.<br/>
+* When Ribbet has reached 4999 steps (maximum progress), the game will end automatically and display an ending message.<br/>
+* However it is possible for the game to lag significantly if played on a server (i.e. CS server) due to purely network-related speed issues. The screen and keyboard response time could possibly be slow. To solve this, I have made it possible to manually adjust the speed of the game - a lower "speed" value will mean a FASTER speed. **You may change/edit this in ribbetrun.cpp.**<br/>
+* Recommended "speed" value for playing on a network is **500** (extra fast).<br/>
+* Recommended value for playing locally on computer is **3000**.<br/>
+
 ## Features and Functions:<br/>
+
+*Note: as discussed with TA Chun-Kiu, due to my original partner late-dropping the course recently and unexpectedly, and the fact that the workload was fully done by myself, I am required to satisfy half of the code requirements and implement half of the program features. To the best of my ability, I have managed to fulfil a majority of the original features, and have met code requirements 1, 2, 5, 6, and 7. (This is also written in my individual submission)*<br/>
 
 ribbetrun.cpp contains the following:<br/>
 
@@ -68,6 +83,8 @@ ribbetrun.cpp contains the following:<br/>
   * Stops after MAX_CYCLE, display final message.
   
 tree_height and random_range both use **randomization** to generate values.<br/>
+
+Player's progress/"score" is quantified by time elapsed and steps moved. These are constantly updated in real-time during gameplay.<br/>
 
 Program codes are in **multiple files**.<br/>
 
