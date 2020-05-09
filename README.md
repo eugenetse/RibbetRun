@@ -3,105 +3,86 @@ Made by:<br/>
 TSE I Ching Eugene, UID: 3035608215, Subclass G<br/>
 
 ## Game Description<br/>
-RibbetRun is an infinite obstacle dodging game. The single player controls Ribbet the Frog. Press the spacebar or up key (↑) to start the game and to jump. Players must avoid all the trees (obstacles) on the path by jumping. If the player hits a tree, they lose and the game ends. The aim is to last in the game as long as possible. Players’ score is based on time elapsed and bonuses obtained. Players can also hit coins on the path, which will grant them bonus points.
+RibbetRun is an obstacle dodging game. The single player controls Ribbet the Frog. Press the return key to start the game. Press spacebar to jump. Players must avoid all the trees (obstacles) on the path by jumping. If the player hits a tree, they lose and the game ends. The aim is to last in the game as long as possible. Players’ progress is based on time elapsed and steps moved.
 
 ## Features and Functions:<br/>
+
+ribbetrun.cpp contains the following:<br/>
+
+* tree(int x,int y, int h)
+  * Function to draw first tree at x from left, y from top
+
+* untree(int x,int y, int h)
+  * Function to erase first tree at x, y
+  
+* tree2(int x,int y, int h)
+  * Function to draw second tree at x from left, y from top
+  * Creates illusion that trees are sequentially coming. Actually using two trees.
+  
+* untree2(int x,int y, int h)
+  * Function to erase second tree at x, y
+  
+* wait(int t)
+  * Delay function for controlling speed, t = 2000 to 5000 reasonable
+
+* movetree(int t)
+  * Function to move first tree one step to left at delay t (speed)
+  
+* movetree2(int t)
+  * Function to move second tree one step to left at delay t (speed)
+  
+* thefrog(int y)
+  * Draw green frog (Ribbet) at y from top
+  
+* upfrog(int h)
+  * Frog jumps while trees keep moving
+  
+* collision(int jump)
+  * Test collision condition
+
+* random_range()
+  * Function to set random_distance of second tree from first tree
+
 * main()
 
   * Main function of game
 
-  * If current.status = 'S', the game will first ask for the player to input a username (all of the user's progress will be stored under this name in an external file). Then, if the user inputs ' ' or up key, then start game.
+  * Declare functions such as detect_space(void) and random_range(void)
+  
+  * Set max cycles to 5000
+  
+  * Draw the welcoming screen
+  
+  * Wait for user to hit RETURN
+  
+  * Starts game
+  
+  * Randomly set the tree heights to 2, 3 or 4
+  
+  * Draw the frog and the tree initial positions
+  
+  * Starts the loop. Detects keystroke, or keep trees moving regardless of keystroke
+  
+  * Check collision while not jumping
+  
+  * Stops after MAX_CYCLE, display final message.
+  
+tree_height and random_range both use **randomization** to generate values.<br/>
 
-  * Else if current.status = 'P', then if user inputs ' ' or up key, then execute jump function.
+Program codes are in **multiple files**.<br/>
 
-  * Else if current.status = 'O', display the Game Over text. Then, if user inputs ' ' or up key, then start game.
+Data structures: kbhit.cpp uses the static **struct** termios old, current.<br/>
 
-* **Structure:** game_status
+Used in kbhit.cpp:<br/>
 
-  * This represents the current status/mode of the game. The first member of this structure is a character type variable named "status", which can have three values: 'S' for starting screen, 'P' for playing, 'O' for game over.
+* initTermios(int echo)
 
-  * Description of statuses: starting screen (only displayed upon initialization), playing, and game over (once Ribbet hits obstacle).
+* resetTermios()
 
-  * At start of game, initalize game_status current = { 'O' }
+* enable_raw_mode()
 
-* Function: set_obstacle
+* disable_raw_mode()
 
-  * Obstacles (trees) will start appearing from the right, at random frequencies.
+* kbhit()
 
-  * The separation between obstacles will take a **random number of spaces** (tree_space). tree_space will be a **randomly generated number between the range of 10 and 20** (i.e. distance between obstacles will randomly range from 10 to 20 spaces).
-
-* Function: set_coin
-
-  * Coins will start appearing from the right regularly and much less frequently than trees.
-
-  * The space separation between coins (coin_space) will constantly be equal to 100 (i.e. distance between obstacles will always be 100 spaces).
-
-* Function: moveleft()
-
-  * This is the action that "moves" a tree/coin leftwards towards Ribbet.
-
-  * The action copies and stores a tree/coin into a temporary storage, then erases the tree/coin from their current position, and finally copies the tree/coin from the temporary storage into the neighboring space on its left.
-
-* **Structure:** obstacle_type
-
-  * Represents the characteristics of tree obstacles. Obstacles can be a single tree, group of two trees, or group of three trees. Obstacles' height can be short, medium and tall.
-
-  * Hence, there are two members in this structure: width (integer type) and height (integer type)
-
-  * Value of width can be 1, 2, or 3 (representing number of "trees" that comprise the obstacle), and value of height can be 2, 3, or 4 (representing number of spaces).
-
-* Void function: jump
-
-  * Instructs Ribbet to jump.
-
-  * Ribbet will move upwards by a constant number of spaces, and fall downwards by the same number of spaces.
-
-* Bool: hit_tree
-
-  * Reports status of whether Ribbet has touched a tree.
-
-  * By default from initialization, hit_tree = False. During the game (when current.status = 'P'), if Ribbet's location is in immediate vicinity of (i.e. immediately neighboring) a tree/obstacle, value of hit_tree will become True. This will change current.status to 'O'. After this has happened, hit_tree will revert back to False.
-
-  * Output: return True, False
-
-* Bool: hit_coin
-
-  * Reports status of whether Ribbet has touched a coin.
-
-  * By default from initialization, hit_coin = False. During the game (when current.status = 'P'), if Ribbet's location is in immediate vicinity of (i.e. immediately neighboring) a coin, value of hit_coin will become True. This will trigger bonus_score += 500 (add 500 bonus points). After this has happened, hit_coin will revert back to False.
-
-  * Output: return True, False
-
-* **Structure:** score
-
-  * Members: stored_score (**dynamic variable**, integer type), real_time_score (integer type), time_score (integer type) and bonus_score (integer type). pt_score (integer type) is a pointer that will point to the stored_score dynamic variable.
-
-  * The unit that member variables are based on is tenth of a second.
-
-  * Two structure variables used: score current_score and score highscore.
-
-  * current_score structure:
-
-    * While current.status = 'P', time_score will be constantly updated every tenth of a second to show the number of tenths of seconds that have elapsed (e.g. after 10 seconds runtime, time_score will be 100).
-
-    * bonus_score += 500 when hit_coin = True.
-
-    * real_time_score will be time_score + bonus_score, constantly updated every tenth of a second for every change. real_time_score will also be printed after each update, to accurately reflect real-time score. When current.status = 'O', real_time_score will stop updating, and its value will be copied over (updated) to the stored_score dynamic variable using current_score structure's *pt_score.
-
-    * Prior to updating stored_score, *pt_score = new int must be executed, and if stored_score's value already exists, pt_score's memory must be freed and reset first (delete pt_score; pt_score = 0;).
-
-  * For highscore structure, only stored_score **dynamic variable** will be used (real_time_score set to 0). If the player is new (external file belonging to username is newly created) then the default highscore.stored_score is 0. Otherwise, the player's existing highscore will be retrieved from [username].txt using read_user_file function. When current.status = 'O', current_score.stored_score will be compared to highscore.stored_score. If current_score.stored_score > highscore.stored_score, highscore.stored_score will be updated to equal current_score.stored_score, using highscore structure's *pt_score, and the new value will be copied to the user's external file using write_user_file function. Otherwise, there will be no change in highscore. highscore.stored_score will also be printed after each update (initially it will be printed as 0).
-
-    * Prior to updating stored_score, *pt_score = new int must be executed, and if stored_score's value already exists, pt_score's memory must be freed and reset first (delete pt_score; pt_score = 0;).
-
-* Function: read_user_file **(file input)**
-
-  * Given a username as input argument, this function opens the username's corresponding file and retrieves their highscore.
-
-  * First, check if [username].txt exists. If not, then print a notification message and then set highscore.stored_score to 0 (file will be created in write_user_file function). If the file exists, read the highscore from the file and copy it into highscore.stored_score. The file will finally be closed.
-
-* Function: write_user_file **(file output)**
-
-  * Create/write to the user's designated external file, copying/updating the new highscore value.
-
-  * If the file cannot be created due to error, an error message will be printed. Otherwise, any previous user highscore data in the file should be erased and replaced with the new highscore data. The file will finally be closed.
+* detect_space()
